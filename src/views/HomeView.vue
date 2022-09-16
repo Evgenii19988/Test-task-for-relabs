@@ -1,9 +1,12 @@
 <template>
-  <div>sdad</div>
+  <users-list />
 </template>
 
 <script>
-// @ is an alias to /src
-
-export default {};
+import UsersList from "../components/UsersList.vue";
+export default {
+  components: {
+    UsersList,
+  },
+};
 </script>

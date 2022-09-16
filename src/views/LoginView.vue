@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import router from "@/router";
 import { Lock, User } from "@element-plus/icons-vue";
 export default {
   name: "LogIn",
@@ -118,7 +119,7 @@ export default {
       this.loading = true;
       await this.simulateLogin();
       this.loading = false;
-      console.log(1);
+      router.push("/");
     },
   },
 };
