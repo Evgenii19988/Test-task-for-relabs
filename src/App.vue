@@ -1,12 +1,10 @@
-<template>
-  <router-view />
-</template>
+<template><router-view /></template>
 
 <script>
 export default {
-  beforeCreate() {
+  /*beforeCreate() {
     this.$router.push("/login");
-  },
+  },*/
 };
 </script>
 

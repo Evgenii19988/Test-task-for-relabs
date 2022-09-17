@@ -20,7 +20,7 @@
 
     <el-table-column label="Дата создания">
       <template #default="scope">
-        <div>{{ scope.row.date }}</div>
+        <div>{{ formateDate(new Date(scope.row.ctime * 1000)) }}</div>
       </template>
     </el-table-column>
 
@@ -41,7 +41,7 @@
     v-model:pageSize="pageSize"
     background
     layout="prev, pager, next"
-    :total="40"
+    :total="30"
   />
 </template>
 
@@ -52,49 +52,44 @@ export default {
       currentPage: 1,
       pageSize: 10,
 
-      tableData: [
-        {
-          id: 2,
-          date: "2016-05-03",
-          name: "Tom",
-          role: "dd",
-          address: "No. 189, Grove St, Los Angeles",
-        },
-        {
-          id: 3,
-          date: "2016-05-02",
-          name: "Tom",
-          role: "dd",
-          address: "No. 189, Grove St, Los Angeles",
-        },
-        {
-          id: 4,
-          date: "2016-05-04",
-          name: "Tom",
-          role: "dd",
-          address: "No. 189, Grove St, Los Angeles",
-        },
-        {
-          id: 5,
-          date: "2016-05-01",
-          name: "Tom",
-          role: "dd",
-          address: "No. 189, Grove St, Los Angeles",
-        },
-      ],
+      tableData: null,
+
+      dateNow: null,
     };
   },
+
   methods: {
     handleDelete(idx) {
       this.tableData.splice(idx, 1);
     },
 
+    formateDate(date) {
+      return (
+        date.getDate() +
+        "." +
+        (date.getMonth() + 1) +
+        "." +
+        date.getFullYear() +
+        " " +
+        date.getHours() +
+        ":" +
+        date.getMinutes()
+      );
+    },
+
     async getUsers() {
       const result = await fetch(
-        "https://test.relabs.ru/api/users/list?offset=5"
+        `https://test.relabs.ru/api/users/list?offset=${
+          (this.currentPage - 1) * 5
+        }`
       );
-      console.log(await result.json());
+      const users = await result.json();
+      this.tableData = users.items;
     },
+  },
+
+  created() {
+    this.getUsers();
   },
 };
 </script>
