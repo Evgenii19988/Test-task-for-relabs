@@ -119,7 +119,7 @@ export default {
       this.loading = true;
       await this.simulateLogin();
       this.loading = false;
-      router.push("/");
+      router.push("/main");
     },
   },
 };

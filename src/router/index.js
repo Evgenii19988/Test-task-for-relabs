@@ -1,6 +1,8 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
 import LogIn from "../views/LoginView.vue";
+import HomeLayout from "../views/HomeLayout.vue";
+import MainPage from "../components/MainPage.vue";
+import ShopPage from "../components/ShopPage.vue";
 
 const routes = [
   {
@@ -10,8 +12,21 @@ const routes = [
   },
   {
     path: "/",
-    name: "home",
-    component: HomeView,
+    name: "homeLayout",
+    component: HomeLayout,
+    redirect: "/login",
+    children: [
+      {
+        path: "main",
+        name: "main",
+        component: MainPage,
+      },
+      {
+        path: "shop",
+        name: "shop",
+        component: ShopPage,
+      },
+    ],
   },
 ];
 

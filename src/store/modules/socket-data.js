@@ -43,7 +43,6 @@ export default {
 
     SOCKET_ONMESSAGE(state, message) {
       state.socket.message = message;
-      console.log(state.socket.message);
     },
 
     SOCKET_RECONNECT(state, count) {
