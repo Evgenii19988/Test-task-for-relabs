@@ -1,8 +1,8 @@
 import { createStore } from "vuex";
-import events from "./modules/socket-data";
+import socketData from "./modules/socket-data";
 
 export default createStore({
   modules: {
-    events,
+    socketData,
   },
 });

@@ -1,5 +1,3 @@
-import main from "/src/main";
-
 export default {
   state: {
     socket: {
@@ -16,39 +14,23 @@ export default {
     },
   },
   mutations: {
-    SOCKET_ONOPEN(state, event) {
-      main.config.globalProperties.$socket = event.currentTarget;
+    SOCKET_ONOPEN(state) {
       state.socket.isConnected = true;
-      state.socket.heartBeatTimer = setInterval(() => {
-        const message = "";
-        state.socket.isConnected &&
-          main.config.globalProperties.$socket.sendObj({
-            code: 200,
-            msg: message,
-          });
-      }, state.socket.heartBeatInterval);
     },
-    SOCKET_ONCLOSE(state, event) {
+    SOCKET_ONCLOSE(state) {
       state.socket.isConnected = false;
-
-      clearInterval(state.socket.heartBeatTimer);
-      state.socket.heartBeatTimer = 0;
-      console.log(new Date());
-      console.log(event);
     },
-
     SOCKET_ONERROR(state, event) {
       console.error(state, event);
     },
-
+    // default handler called for all methods
     SOCKET_ONMESSAGE(state, message) {
       state.socket.message = message;
     },
-
+    // mutations for reconnect methods
     SOCKET_RECONNECT(state, count) {
       console.info(state, count);
     },
-
     SOCKET_RECONNECT_ERROR(state) {
       state.socket.reconnectError = true;
     },

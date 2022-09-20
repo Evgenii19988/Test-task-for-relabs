@@ -34,6 +34,7 @@
         </el-form-item>
         <el-form-item>
           <el-button
+            :disabled="!this.model.email || !this.model.password"
             class="login-button"
             type="primary"
             native-type="submit"
@@ -68,22 +69,12 @@ export default {
       rules: {
         email: [
           {
-            required: true,
-            message: "Поле является обязательным",
-            trigger: "blur",
-          },
-          {
             type: "email",
             message: "Пожалуйста, введите правильный email",
             trigger: ["blur", "change"],
           },
         ],
         password: [
-          {
-            required: true,
-            message: "Поле является обязательным",
-            trigger: "blur",
-          },
           {
             min: 8,
             message: "Длина пароля должна быть не менее 8 символов",
@@ -99,8 +90,8 @@ export default {
   },
   methods: {
     validatePassword(rule, value, callback) {
+      if (!this.model.password) return;
       if (value === value.toLowerCase()) {
-        console.log(rule);
         return callback(new Error("Пароль должен содержать заглавную букву"));
       } else {
         callback();
